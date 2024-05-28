@@ -9,9 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.43.2",
+    "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
+    "html5-qrcode": "2.3.4",
+    "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.3"
+    "react-hook-form": "^7.51.5",
+    "react-uuid": "^2.0.0"
   },
   "devDependencies": {
     "typescript": "^5",
