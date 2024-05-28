@@ -32,7 +32,7 @@ const QrScanner = () => {
       scanner.clear();
 
       router.push(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/qr-code-keluar/${decodedText}/?email=${user?.email}&code=${decodedText}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/qr-code-pulang/${decodedText}/?email=${user?.email}&code=${decodedText}`
       );
 
       // ^ this will stop the scanner (video feed) and clear the scan area.
