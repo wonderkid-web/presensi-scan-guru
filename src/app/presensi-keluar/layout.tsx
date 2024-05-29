@@ -77,7 +77,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       <div className="flex justify-between px-4">
         <h1 className="text-2xl font-bold">Presensi Masuk</h1>
         <Link
-          href={"presensi-masuk/scan"}
+          href={"presensi-keluar/scan"}
           className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-700"
         >
           Buka Scanner

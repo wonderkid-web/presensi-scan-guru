@@ -23,6 +23,7 @@ const Dashboard = () => {
       <pre>
         {JSON.stringify(user, null, 2)}
       </pre>
+      <button onClick={()=>router.back()}>kembali</button>
       {/* Konten dashboard di sini */}
     </GridLayout>
   );
