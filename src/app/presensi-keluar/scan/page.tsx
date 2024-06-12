@@ -1,9 +1,8 @@
 // @ts-nocheck
-// components/QrScanner.tsx
 "use client";
 
-import useAuth from "@/hooks/useAuth";
 import { Html5QrcodeScanner } from "html5-qrcode";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,7 +13,7 @@ const QrScanner = () => {
 
   const router = useRouter();
 
-  const { user } = useAuth();
+  const session = useSession()
 
   useEffect(() => {
     var scanner = new Html5QrcodeScanner("reader", {
@@ -32,7 +31,7 @@ const QrScanner = () => {
       scanner.clear();
 
       router.push(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/qr-code-pulang/${decodedText}/?email=${user?.email}&code=${decodedText}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/qr-code-pulang/${decodedText}/?email=${session.data?.user?.email}&code=${decodedText}`
       );
 
       // ^ this will stop the scanner (video feed) and clear the scan area.
@@ -55,7 +54,7 @@ const QrScanner = () => {
         scannerRef.current.clear();
       }
     };
-  }, [user]);
+  }, [session]);
 
   return (
     <div className="container mt-8">
