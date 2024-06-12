@@ -8,6 +8,7 @@ import GridLayout from "@/components/GridLayout";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { useSession } from "next-auth/react";
 
 export interface User {
   name: string;
@@ -31,21 +32,22 @@ export interface SingleUser {
 function Layout({ children }: { children: React.ReactNode }) {
   const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<SingleUser | null>(null);
-  const { user: sessionUser } = useAuth();
+  const session = useSession()
 
   useEffect(() => {
-    if (sessionUser?.email) {
+    if (session?.data?.user?.email) {
+
       getSingleUser();
       getUsers();
     }
-  }, [sessionUser]);
+  }, [session]);
 
   const getUsers = async () => {
     const raw = await fetch(`https://660159c687c91a11641aa8d1.mockapi.io/user`);
     const users: User[] = await raw.json();
 
     const filteredUsers = users.filter(
-      (u) => u.name === sessionUser.email && u.type === "masuk"
+      (u) => u.name === session.data?.user?.email && u.type === "masuk"
     );
 
     console.log(filteredUsers);
@@ -59,7 +61,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     const { data: rawSingleUser }: PostgrestSingleResponse<SingleUser[]> =
       await supabase.from("user").select("*");
 
-    const singleUser = rawSingleUser?.find((u) => u.email === sessionUser.email);
+    const singleUser = rawSingleUser?.find((u) => u.email === session.data?.user?.email);
 
     setUser(singleUser || null);
   };
@@ -96,9 +98,9 @@ function Layout({ children }: { children: React.ReactNode }) {
           {users.length > 0 ? (
             users.map((u) => (
               <tr className="text-center" key={u.id}>
-                <td className="py-2 px-4 border-b">{user.name}</td>
-                <td className="py-2 px-4 border-b">{user.nip}</td>
-                <td className="py-2 px-4 border-b">{user.job_title}</td>
+                <td className="py-2 px-4 border-b">{user?.name}</td>
+                <td className="py-2 px-4 border-b">{user?.nip}</td>
+                <td className="py-2 px-4 border-b">{user?.job_title}</td>
                 <td className="py-2 px-4 border-b">
                   {format(new Date(u.jam), "dd MMMM yyyy HH:mm", {
                     locale: id,

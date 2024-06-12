@@ -1,21 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import foto1 from "@/../public/foto1.jpg";
 import foto2 from "@/../public/foto2.jpg";
 import foto3 from "@/../public/foto3.jpg";
-import { useAuth } from "@/lib/zustand";
-import useAuthChecker from "@/hooks/useAuth";
 import GridLayout from "@/components/GridLayout";
 
 export default function Home() {
-  const user = useAuthChecker();
-
-  if (!user) {
-    return null;
-  }
-
+  
   return (
     <GridLayout>
       <main className="flex flex-col justify-center relative bg-slate-50 top-[-30px]">

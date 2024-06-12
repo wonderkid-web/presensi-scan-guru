@@ -1,6 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabaseClient";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -9,7 +10,7 @@ function ButtonLogout() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push("/signin");
+    await signOut()
   };
 
   return (

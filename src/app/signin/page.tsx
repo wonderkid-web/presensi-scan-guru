@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import useAuth from "@/hooks/useAuth";
 import GridLayout from "@/components/GridLayout";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,28 +14,18 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   
-  const router = useRouter();
-  const { user } = useAuth();
-
   const handleLogin = async () => {
     setLoading(true);
     setErrorMessage("");
-    const { error } = await supabase.auth.signInWithPassword({
+    
+    await signIn("credentials", {
       email,
       password,
-    });
-    setLoading(false);
-    if (error) {
-      setErrorMessage(error.message);
-    } else {
-      router.push("/");
-    }
-  };
+      callbackUrl: "/"
+    })
 
-  if (user) {
-    router.push("/");
-    return null; // Menghindari rendering ganda saat redirect
-  }
+    setLoading(false)
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">

@@ -22,7 +22,7 @@ const Sidebar = () => {
             Presensi Masuk
         </Link>
         <Link href="/presensi-keluar" className={`block px-4 py-2 rounded hover:bg-gray-700 ${pathname === '/presensi-keluar' && 'bg-gray-700'}`}>
-            Presensi Keluar
+            Presensi Pulang
         </Link>
       </nav>
     </div>
