@@ -2,11 +2,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
-import useAuth from "@/hooks/useAuth";
-import GridLayout from "@/components/GridLayout";
 import { signIn } from "next-auth/react";
+import logo from "@/../../public/favicon.ico"
+import Image from "next/image";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -30,6 +28,9 @@ export default function Login() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+      <div className="w-16 h-16 relative mx-auto">  
+        <Image alt="logo"  src={logo} objectFit="cover" />
+      </div>
         <h2 className="text-2xl font-bold text-center">Login</h2>
         {errorMessage && (
           <div className="text-red-500 text-center">{errorMessage}</div>
