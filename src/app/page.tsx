@@ -12,7 +12,7 @@ export default function Home() {
     <GridLayout>
       <main className="flex flex-col justify-center relative bg-slate-50 top-[-30px]">
         <h1 className="text-2xl  font-bold text-center mb-4">
-          Selamat Datang Di Website Pegawai Presensi Online
+          Selamat Datang Di Website Guru SD Presensi Online
         </h1>
         <h1 className="text-2xl  font-bold text-center mb-4">
           Sekolah Yayasan Pendidikan Amal Luhur
