@@ -25,8 +25,6 @@ export default function Login() {
       redirect: false,
     });
 
-    console.log(signin)
-
     if (!signin?.ok) {
       toast.error("NIP atau Password kamu mungkin salah nih");
     } else {
@@ -49,11 +47,11 @@ export default function Login() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Email
+              NIP
             </label>
             <input
-              type="email"
-              placeholder="Email"
+              type="text"
+              placeholder="NIP Pegawai"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
