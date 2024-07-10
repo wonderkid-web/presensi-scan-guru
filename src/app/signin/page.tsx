@@ -3,34 +3,45 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import logo from "@/../../public/favicon.ico"
+import logo from "@/../../public/favicon.ico";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  
+  const router = useRouter();
+
   const handleLogin = async () => {
     setLoading(true);
     setErrorMessage("");
-    
-    await signIn("credentials", {
+
+    const signin = await signIn("credentials", {
       email,
       password,
-      callbackUrl: "/"
-    })
+      redirect: false,
+    });
 
-    setLoading(false)
+    console.log(signin)
+
+    if (!signin?.ok) {
+      toast.error("NIP atau Password kamu mungkin salah nih");
+    } else {
+      router.push("/");
+    }
+
+    setLoading(false);
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
-      <div className="w-16 h-16 relative mx-auto">  
-        <Image alt="logo"  src={logo} objectFit="cover" />
-      </div>
+        <div className="w-16 h-16 relative mx-auto">
+          <Image alt="logo" src={logo} objectFit="cover" />
+        </div>
         <h2 className="text-2xl font-bold text-center">Login</h2>
         {errorMessage && (
           <div className="text-red-500 text-center">{errorMessage}</div>

@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { supabase } from "@/lib/supabaseClient";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -13,27 +13,26 @@ export const options: AuthOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
 
-      credentials: {
-        email: { label: "email", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-
-      async authorize(credentials, req) {
+      // @ts-ignore
+      async authorize(credentials:Record<"email"|"password", string>|undefined, req) {
         // Add logic here to look up the user from the credentials supplied
 
         if (credentials) {
           try {
-            const { data, error } = await supabase.auth.signInWithPassword({
-              email: credentials.email,
-              password: credentials.password,
-            });
+            const { data, error } = await supabase.from("user").select("*").eq("nip", credentials.email).eq("password", credentials.password);
+            
+            // const { data, error } = await supabase.auth.signInWithPassword({
+            //   email: credentials.email,
+            //   password: credentials.password,
+            // });
 
             if (error) {
-              console.log(error.message);
+              return null
             }
 
-            if (data.user) {
-              return data.user;
+
+            if (data) {
+              return data[0];
             }
           } catch (error) {
             return null;

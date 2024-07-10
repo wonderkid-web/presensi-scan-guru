@@ -44,6 +44,7 @@ const Register = () => {
         address,
         contact,
         email,
+        password
       },
     ]);
 
